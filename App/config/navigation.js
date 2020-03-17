@@ -1,6 +1,8 @@
 import React from "react";
+import { TouchableOpacity } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
+import { Entypo } from "@expo/vector-icons";
 
 import Home from "../screens/Home";
 import CurrencyList from "../screens/CurrencyList";
@@ -30,7 +32,22 @@ const ModalStackScreen = () => (
       component={MainStackScreen}
       options={{ headerShown: false }}
     />
-    <ModalStack.Screen name="CurrencyList" component={CurrencyList} />
+    <ModalStack.Screen
+      name="CurrencyList"
+      component={CurrencyList}
+      options={({ navigation, route }) => ({
+        title: route.params && route.params.title,
+        headerRight: () => (
+          <TouchableOpacity
+            onPress={() => navigation.pop()}
+            style={{ paddingHorizontal: 10 }}
+          >
+            <Entypo name="cross" size={30} color="#4F6D7A" />
+          </TouchableOpacity>
+        ),
+        headerLeft: null
+      })}
+    />
   </ModalStack.Navigator>
 );
 

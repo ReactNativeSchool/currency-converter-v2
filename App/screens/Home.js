@@ -61,6 +61,7 @@ const styles = StyleSheet.create({
   }
 });
 
+// TODO: Handle keyboard
 export default ({ navigation }) => {
   return (
     <View style={styles.container}>
@@ -91,13 +92,17 @@ export default ({ navigation }) => {
             <ConversionInput
               text="USD"
               value="100"
-              onButtonPress={() => navigation.push("CurrencyList")}
+              onButtonPress={() =>
+                navigation.push("CurrencyList", { title: "Base Currency" })
+              }
             />
             <ConversionInput
               text="GBP"
               value="77.10"
               editable={false}
-              onButtonPress={() => navigation.push("CurrencyList")}
+              onButtonPress={() =>
+                navigation.push("CurrencyList", { title: "Quote Currency" })
+              }
             />
           </View>
           <Text style={styles.text}>
