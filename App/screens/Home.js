@@ -10,7 +10,9 @@ import {
   TouchableOpacity
 } from "react-native";
 import { Entypo } from "@expo/vector-icons";
+
 import { ConversionInput } from "../components/ConversionInput";
+import { Button } from "../components/Button";
 
 const screen = Dimensions.get("window");
 
@@ -26,7 +28,7 @@ const styles = StyleSheet.create({
   content: {
     position: "relative",
     flex: 1,
-    justifyContent: "center"
+    paddingTop: screen.height * 0.1
   },
   logoContainer: {
     alignItems: "center",
@@ -52,21 +54,6 @@ const styles = StyleSheet.create({
   inputContainer: {
     marginBottom: 10
   },
-  button: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    marginVertical: 20
-  },
-  buttonIcon: {
-    marginRight: 10,
-    width: 20,
-    height: 20
-  },
-  buttonText: {
-    fontSize: 16,
-    color: "#fff"
-  },
   text: {
     fontSize: 14,
     color: "#fff",
@@ -87,7 +74,6 @@ export default ({ navigation }) => {
         </View>
 
         <View style={styles.content}>
-          {/* TODO: Can this just be one image? */}
           <View style={styles.logoContainer}>
             <Image
               source={require("../assets/images/background.png")}
@@ -117,17 +103,7 @@ export default ({ navigation }) => {
           <Text style={styles.text}>
             1 USD = 0.77096 GBP as of March 15, 2020
           </Text>
-          <TouchableOpacity
-            onPress={() => alert("todo!")}
-            style={styles.button}
-          >
-            <Image
-              source={require("../assets/images/reverse.png")}
-              style={styles.buttonIcon}
-              resizeMode="contain"
-            />
-            <Text style={styles.buttonText}>Reverse Currencies</Text>
-          </TouchableOpacity>
+          <Button text="Reverse Currencies" onPress={() => alert("todo!")} />
         </View>
       </SafeAreaView>
     </View>
