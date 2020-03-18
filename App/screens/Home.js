@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   StyleSheet,
   StatusBar,
@@ -7,10 +7,12 @@ import {
   SafeAreaView,
   Dimensions,
   Text,
-  TouchableOpacity
+  TouchableOpacity,
+  ActivityIndicator
 } from "react-native";
 import { Entypo } from "@expo/vector-icons";
 
+import { ConversionContext } from "../util/ConversionContext";
 import { ConversionInput } from "../components/ConversionInput";
 import { Button } from "../components/Button";
 
@@ -63,19 +65,16 @@ const styles = StyleSheet.create({
 
 // TODO: Handle keyboard
 export default ({ navigation }) => {
-  const [baseCurrency, setBaseCurrency] = useState("USD");
-  const [quoteCurrency, setQuoteCurrency] = useState("GBP");
-  const [conversionRate] = useState(0.77096);
+  const {
+    baseCurrency,
+    quoteCurrency,
+    date,
+    isLoading,
+    swapCurrencies,
+    rates
+  } = useContext(ConversionContext);
   const [value, setValue] = useState("100");
-  const [date] = useState("2020-03-18");
-
-  const changeBase = newBase => {
-    setBaseCurrency(newBase);
-  };
-
-  const changeQuote = newQuote => {
-    setQuoteCurrency(newQuote);
-  };
+  const conversionRate = rates[quoteCurrency];
 
   return (
     <View style={styles.container}>
@@ -102,43 +101,53 @@ export default ({ navigation }) => {
             />
           </View>
           <Text style={styles.textHeader}>Currency Converter</Text>
-          <View style={styles.inputContainer}>
-            <ConversionInput
-              text={baseCurrency}
-              value={value}
-              onButtonPress={() =>
-                navigation.push("CurrencyList", {
-                  title: "Base Currency",
-                  onPress: currency => changeBase(currency)
-                })
-              }
-              keyboardType="numeric"
-              onChangeText={text => {
-                if (text.length === 0) {
-                  setValue();
-                } else {
-                  setValue(text);
-                }
-              }}
-            />
-            <ConversionInput
-              text={quoteCurrency}
-              value={
-                value && `${(parseFloat(value) * conversionRate).toFixed(2)}`
-              }
-              editable={false}
-              onButtonPress={() =>
-                navigation.push("CurrencyList", {
-                  title: "Quote Currency",
-                  onPress: currency => changeQuote(currency)
-                })
-              }
-            />
-          </View>
-          <Text style={styles.text}>
-            {`1 ${baseCurrency} = ${conversionRate} ${quoteCurrency} as of ${date}`}
-          </Text>
-          <Button text="Reverse Currencies" onPress={() => alert("todo!")} />
+          {isLoading ? (
+            <ActivityIndicator color="#fff" size="large" />
+          ) : (
+            <>
+              <View style={styles.inputContainer}>
+                <ConversionInput
+                  text={baseCurrency}
+                  value={value}
+                  onButtonPress={() =>
+                    navigation.push("CurrencyList", {
+                      title: "Base Currency",
+                      isBase: true
+                    })
+                  }
+                  keyboardType="numeric"
+                  onChangeText={text => {
+                    if (text.length === 0) {
+                      setValue();
+                    } else {
+                      setValue(text);
+                    }
+                  }}
+                />
+                <ConversionInput
+                  text={quoteCurrency}
+                  value={
+                    value &&
+                    `${(parseFloat(value) * conversionRate).toFixed(2)}`
+                  }
+                  editable={false}
+                  onButtonPress={() =>
+                    navigation.push("CurrencyList", {
+                      title: "Quote Currency",
+                      isBase: false
+                    })
+                  }
+                />
+              </View>
+              <Text style={styles.text}>
+                {`1 ${baseCurrency} = ${conversionRate} ${quoteCurrency} as of ${date}`}
+              </Text>
+              <Button
+                text="Reverse Currencies"
+                onPress={() => swapCurrencies()}
+              />
+            </>
+          )}
         </View>
       </SafeAreaView>
     </View>
