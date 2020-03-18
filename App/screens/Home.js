@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   StyleSheet,
   StatusBar,
@@ -63,6 +63,20 @@ const styles = StyleSheet.create({
 
 // TODO: Handle keyboard
 export default ({ navigation }) => {
+  const [baseCurrency, setBaseCurrency] = useState("USD");
+  const [quoteCurrency, setQuoteCurrency] = useState("GBP");
+  const [conversionRate] = useState(0.77096);
+  const [value, setValue] = useState("100");
+  const [date] = useState("2020-03-18");
+
+  const changeBase = newBase => {
+    setBaseCurrency(newBase);
+  };
+
+  const changeQuote = newQuote => {
+    setQuoteCurrency(newQuote);
+  };
+
   return (
     <View style={styles.container}>
       <StatusBar barStyle="light-content" />
@@ -90,23 +104,39 @@ export default ({ navigation }) => {
           <Text style={styles.textHeader}>Currency Converter</Text>
           <View style={styles.inputContainer}>
             <ConversionInput
-              text="USD"
-              value="100"
+              text={baseCurrency}
+              value={value}
               onButtonPress={() =>
-                navigation.push("CurrencyList", { title: "Base Currency" })
+                navigation.push("CurrencyList", {
+                  title: "Base Currency",
+                  onPress: currency => changeBase(currency)
+                })
               }
+              keyboardType="numeric"
+              onChangeText={text => {
+                if (text.length === 0) {
+                  setValue();
+                } else {
+                  setValue(text);
+                }
+              }}
             />
             <ConversionInput
-              text="GBP"
-              value="77.10"
+              text={quoteCurrency}
+              value={
+                value && `${(parseFloat(value) * conversionRate).toFixed(2)}`
+              }
               editable={false}
               onButtonPress={() =>
-                navigation.push("CurrencyList", { title: "Quote Currency" })
+                navigation.push("CurrencyList", {
+                  title: "Quote Currency",
+                  onPress: currency => changeQuote(currency)
+                })
               }
             />
           </View>
           <Text style={styles.text}>
-            1 USD = 0.77096 GBP as of March 15, 2020
+            {`1 ${baseCurrency} = ${conversionRate} ${quoteCurrency} as of ${date}`}
           </Text>
           <Button text="Reverse Currencies" onPress={() => alert("todo!")} />
         </View>
