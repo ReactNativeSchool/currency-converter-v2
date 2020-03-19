@@ -7,7 +7,8 @@ import {
   Dimensions,
   Text,
   TouchableOpacity,
-  ActivityIndicator
+  ActivityIndicator,
+  ScrollView
 } from "react-native";
 import { Entypo } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -17,6 +18,7 @@ import { ConversionContext } from "../util/ConversionContext";
 import { ConversionInput } from "../components/ConversionInput";
 import { Button } from "../components/Button";
 import colors from "../constants/colors";
+import { KeyboardSpacer } from "../components/KeyboardSpacer";
 
 const screen = Dimensions.get("window");
 
@@ -65,7 +67,6 @@ const styles = StyleSheet.create({
   }
 });
 
-// TODO: Handle keyboard
 export default ({ navigation }) => {
   const {
     baseCurrency,
@@ -77,11 +78,15 @@ export default ({ navigation }) => {
   } = useContext(ConversionContext);
   const { themeColor } = useContext(ThemeContext);
 
+  const [scrollEnabled, setScrollEnabled] = useState(false);
   const [value, setValue] = useState("100");
   const conversionRate = rates[quoteCurrency];
 
   return (
-    <View style={[styles.container, { backgroundColor: themeColor }]}>
+    <ScrollView
+      style={[styles.container, { backgroundColor: themeColor }]}
+      scrollEnabled={scrollEnabled}
+    >
       <StatusBar barStyle="light-content" />
 
       <SafeAreaView style={{ flex: 1 }}>
@@ -154,6 +159,7 @@ export default ({ navigation }) => {
           )}
         </View>
       </SafeAreaView>
-    </View>
+      <KeyboardSpacer onToggle={visible => setScrollEnabled(visible)} />
+    </ScrollView>
   );
 };
