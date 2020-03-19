@@ -1,6 +1,8 @@
 import React from "react";
 import { TouchableOpacity, Image, StyleSheet, Text } from "react-native";
 
+import colors from "../constants/colors";
+
 const styles = StyleSheet.create({
   button: {
     flexDirection: "row",
@@ -15,7 +17,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontSize: 16,
-    color: "#fff"
+    color: colors.white
   }
 });
 

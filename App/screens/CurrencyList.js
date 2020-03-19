@@ -5,6 +5,7 @@ import { Entypo } from "@expo/vector-icons";
 import currencies from "../data/currencies.json";
 import { RowItem, RowSeparator } from "../components/RowItem";
 import { ConversionContext } from "../util/ConversionContext";
+import colors from "../constants/colors";
 
 const styles = StyleSheet.create({
   icon: {
@@ -29,7 +30,7 @@ export default ({ navigation, route = {} }) => {
   const { isBase = true } = params;
 
   return (
-    <View style={{ flex: 1, backgroundColor: "#fff" }}>
+    <View style={{ flex: 1, backgroundColor: colors.white }}>
       <StatusBar barStyle="dark-content" />
       <FlatList
         data={currencies}
@@ -54,8 +55,8 @@ export default ({ navigation, route = {} }) => {
               }}
               rightIcon={
                 selected && (
-                  <View style={[styles.icon, { backgroundColor: "#4F6D7A" }]}>
-                    <Entypo name="check" size={20} color="#fff" />
+                  <View style={[styles.icon, { backgroundColor: colors.blue }]}>
+                    <Entypo name="check" size={20} color={colors.white} />
                   </View>
                 )
               }

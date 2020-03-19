@@ -7,35 +7,37 @@ import {
   StyleSheet
 } from "react-native";
 
+import colors from "../constants/colors";
+
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#fff",
+    backgroundColor: colors.white,
     marginVertical: 10,
     marginHorizontal: 20,
     flexDirection: "row",
     borderRadius: 5
   },
   containerDisabled: {
-    backgroundColor: "#F0F0F0"
+    backgroundColor: colors.offWhite
   },
   button: {
     padding: 15,
-    borderRightColor: "#E2E2E2",
+    borderRightColor: colors.border,
     borderRightWidth: 1,
-    backgroundColor: "#fff",
+    backgroundColor: colors.white,
     borderTopLeftRadius: 5,
     borderBottomLeftRadius: 5
   },
   buttonText: {
     fontSize: 18,
-    color: "#4F6D7A",
+    color: colors.blue,
     fontWeight: "bold"
   },
   input: {
     flex: 1,
     padding: 10,
     fontSize: 16,
-    color: "#797979"
+    color: colors.textLight
   }
 });
 

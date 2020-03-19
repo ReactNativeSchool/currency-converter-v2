@@ -1,6 +1,8 @@
 import React from "react";
 import { View, StyleSheet, TouchableOpacity, Text } from "react-native";
 
+import colors from "../constants/colors";
+
 const styles = StyleSheet.create({
   row: {
     paddingHorizontal: 20,
@@ -8,14 +10,14 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     flexDirection: "row",
-    backgroundColor: "#fff"
+    backgroundColor: colors.white
   },
   title: {
-    color: "#343434",
+    color: colors.text,
     fontSize: 16
   },
   separator: {
-    backgroundColor: "#E2E2E2",
+    backgroundColor: colors.border,
     height: StyleSheet.hairlineWidth,
     flex: 1,
     marginLeft: 20

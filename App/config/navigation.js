@@ -8,6 +8,7 @@ import Home from "../screens/Home";
 import CurrencyList from "../screens/CurrencyList";
 import Options from "../screens/Options";
 import Themes from "../screens/Themes";
+import colors from "../constants/colors";
 
 const MainStack = createStackNavigator();
 const MainStackScreen = () => (
@@ -42,7 +43,7 @@ const ModalStackScreen = () => (
             onPress={() => navigation.pop()}
             style={{ paddingHorizontal: 10 }}
           >
-            <Entypo name="cross" size={30} color="#4F6D7A" />
+            <Entypo name="cross" size={30} color={colors.blue} />
           </TouchableOpacity>
         ),
         headerLeft: null

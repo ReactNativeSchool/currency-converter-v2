@@ -15,13 +15,14 @@ import { Entypo } from "@expo/vector-icons";
 import { ConversionContext } from "../util/ConversionContext";
 import { ConversionInput } from "../components/ConversionInput";
 import { Button } from "../components/Button";
+import colors from "../constants/colors";
 
 const screen = Dimensions.get("window");
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#4F6D7A"
+    backgroundColor: colors.blue
   },
   header: {
     alignItems: "flex-end",
@@ -47,7 +48,7 @@ const styles = StyleSheet.create({
     height: screen.width * 0.25
   },
   textHeader: {
-    color: "#fff",
+    color: colors.white,
     fontWeight: "bold",
     fontSize: 30,
     textAlign: "center",
@@ -58,7 +59,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 14,
-    color: "#fff",
+    color: colors.white,
     textAlign: "center"
   }
 });
@@ -83,7 +84,7 @@ export default ({ navigation }) => {
       <SafeAreaView style={{ flex: 1 }}>
         <View style={styles.header}>
           <TouchableOpacity onPress={() => navigation.push("Options")}>
-            <Entypo name="cog" size={32} color="#fff" />
+            <Entypo name="cog" size={32} color={colors.white} />
           </TouchableOpacity>
         </View>
 
@@ -102,7 +103,7 @@ export default ({ navigation }) => {
           </View>
           <Text style={styles.textHeader}>Currency Converter</Text>
           {isLoading ? (
-            <ActivityIndicator color="#fff" size="large" />
+            <ActivityIndicator color={colors.white} size="large" />
           ) : (
             <>
               <View style={styles.inputContainer}>

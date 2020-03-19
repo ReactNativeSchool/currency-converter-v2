@@ -2,6 +2,7 @@ import React from "react";
 import { StatusBar, ScrollView, View, StyleSheet } from "react-native";
 
 import { RowItem, RowSeparator } from "../components/RowItem";
+import colors from "../constants/colors";
 
 const styles = StyleSheet.create({
   icon: {
@@ -20,7 +21,7 @@ export default () => (
         title="Blue"
         onPress={() => alert("todo!")}
         rightIcon={
-          <View style={[styles.icon, { backgroundColor: "#4F6D7A" }]} />
+          <View style={[styles.icon, { backgroundColor: colors.blue }]} />
         }
       />
       <RowSeparator />
@@ -28,7 +29,7 @@ export default () => (
         title="Orange"
         onPress={() => alert("todo!")}
         rightIcon={
-          <View style={[styles.icon, { backgroundColor: "#D57A66" }]} />
+          <View style={[styles.icon, { backgroundColor: colors.orange }]} />
         }
       />
       <RowSeparator />
@@ -36,7 +37,7 @@ export default () => (
         title="Green"
         onPress={() => alert("todo!")}
         rightIcon={
-          <View style={[styles.icon, { backgroundColor: "#00BD9D" }]} />
+          <View style={[styles.icon, { backgroundColor: colors.green }]} />
         }
       />
       <RowSeparator />
@@ -44,7 +45,7 @@ export default () => (
         title="Purple"
         onPress={() => alert("todo!")}
         rightIcon={
-          <View style={[styles.icon, { backgroundColor: "#9E768F" }]} />
+          <View style={[styles.icon, { backgroundColor: colors.purple }]} />
         }
       />
       <RowSeparator />
