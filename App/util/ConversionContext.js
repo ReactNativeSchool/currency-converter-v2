@@ -1,4 +1,7 @@
 import React, { createContext, useState, useEffect } from "react";
+import { Alert } from "react-native";
+
+import { api } from "./api";
 
 export const ConversionContext = createContext();
 
@@ -15,17 +18,14 @@ export const ConversionContextProvider = ({ children }) => {
   const setBaseCurrency = currency => {
     setIsLoading(true);
 
-    // TODO: I want to kill this server. Figure out alternative solution
-    return fetch(`http://fixer.handlebarlabs.com/latest?base=${currency}`)
-      .then(res => res.json())
+    return api(`/latest?base=${currency}`)
       .then(res => {
         _setBaseCurrency(currency);
         setDate(res.date);
         setRates(res.rates);
       })
       .catch(error => {
-        // TODO: Handle error
-        console.log("setBaseCurrency Error", error);
+        Alert.alert("Sorry, something went wrong.", error.message);
       })
       .finally(() => {
         setIsLoading(false);
