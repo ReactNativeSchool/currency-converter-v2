@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { StatusBar, FlatList, View, StyleSheet } from "react-native";
 import { Entypo } from "@expo/vector-icons";
+import { useSafeArea } from "react-native-safe-area-context";
 
 import currencies from "../data/currencies.json";
 import { RowItem, RowSeparator } from "../components/RowItem";
@@ -18,7 +19,6 @@ const styles = StyleSheet.create({
   }
 });
 
-// TODO: Handle safe area at bottom of list
 export default ({ navigation, route = {} }) => {
   const {
     baseCurrency,
@@ -27,12 +27,19 @@ export default ({ navigation, route = {} }) => {
     setQuoteCurrency
   } = useContext(ConversionContext);
   const { themeColor } = useContext(ThemeContext);
+  const insets = useSafeArea();
 
   const params = route.params || {};
   const { isBase = true } = params;
 
   return (
-    <View style={{ flex: 1, backgroundColor: colors.white }}>
+    <View
+      style={{
+        flex: 1,
+        backgroundColor: colors.white,
+        paddingBottom: insets.bottom
+      }}
+    >
       <StatusBar barStyle="dark-content" />
       <FlatList
         data={currencies}

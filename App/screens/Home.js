@@ -4,13 +4,13 @@ import {
   StatusBar,
   View,
   Image,
-  SafeAreaView,
   Dimensions,
   Text,
   TouchableOpacity,
   ActivityIndicator
 } from "react-native";
 import { Entypo } from "@expo/vector-icons";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 import { ThemeContext } from "../util/ThemeContext";
 import { ConversionContext } from "../util/ConversionContext";
