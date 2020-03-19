@@ -12,6 +12,7 @@ import {
 } from "react-native";
 import { Entypo } from "@expo/vector-icons";
 
+import { ThemeContext } from "../util/ThemeContext";
 import { ConversionContext } from "../util/ConversionContext";
 import { ConversionInput } from "../components/ConversionInput";
 import { Button } from "../components/Button";
@@ -74,11 +75,13 @@ export default ({ navigation }) => {
     swapCurrencies,
     rates
   } = useContext(ConversionContext);
+  const { themeColor } = useContext(ThemeContext);
+
   const [value, setValue] = useState("100");
   const conversionRate = rates[quoteCurrency];
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: themeColor }]}>
       <StatusBar barStyle="light-content" />
 
       <SafeAreaView style={{ flex: 1 }}>
@@ -97,7 +100,7 @@ export default ({ navigation }) => {
             />
             <Image
               source={require("../assets/images/logo.png")}
-              style={styles.logo}
+              style={[styles.logo, { tintColor: themeColor }]}
               resizeMode="contain"
             />
           </View>

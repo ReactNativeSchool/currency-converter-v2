@@ -6,6 +6,7 @@ import currencies from "../data/currencies.json";
 import { RowItem, RowSeparator } from "../components/RowItem";
 import { ConversionContext } from "../util/ConversionContext";
 import colors from "../constants/colors";
+import { ThemeContext } from "../util/ThemeContext";
 
 const styles = StyleSheet.create({
   icon: {
@@ -25,6 +26,7 @@ export default ({ navigation, route = {} }) => {
     setBaseCurrency,
     setQuoteCurrency
   } = useContext(ConversionContext);
+  const { themeColor } = useContext(ThemeContext);
 
   const params = route.params || {};
   const { isBase = true } = params;
@@ -55,7 +57,7 @@ export default ({ navigation, route = {} }) => {
               }}
               rightIcon={
                 selected && (
-                  <View style={[styles.icon, { backgroundColor: colors.blue }]}>
+                  <View style={[styles.icon, { backgroundColor: themeColor }]}>
                     <Entypo name="check" size={20} color={colors.white} />
                   </View>
                 )
