@@ -55,8 +55,16 @@ const ModalStackScreen = () => {
   );
 };
 
-export default () => (
-  <NavigationContainer>
-    <ModalStackScreen />
-  </NavigationContainer>
-);
+export default () => {
+  const { themeLoading } = useContext(ThemeContext);
+
+  if (themeLoading) {
+    return null;
+  }
+
+  return (
+    <NavigationContainer>
+      <ModalStackScreen />
+    </NavigationContainer>
+  );
+};
