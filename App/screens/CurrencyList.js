@@ -40,7 +40,7 @@ export default ({ navigation, route = {} }) => {
         paddingBottom: insets.bottom
       }}
     >
-      <StatusBar barStyle="dark-content" />
+      <StatusBar barStyle="dark-content" backgroundColor={colors.white} />
       <FlatList
         data={currencies}
         renderItem={({ item }) => {

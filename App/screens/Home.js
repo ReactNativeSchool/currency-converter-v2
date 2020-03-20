@@ -88,7 +88,7 @@ export default ({ navigation }) => {
       style={[styles.container, { backgroundColor: themeColor }]}
       scrollEnabled={scrollEnabled}
     >
-      <StatusBar barStyle="light-content" />
+      <StatusBar barStyle="light-content" backgroundColor={themeColor} />
 
       <SafeAreaView style={{ flex: 1 }}>
         <View style={styles.header}>

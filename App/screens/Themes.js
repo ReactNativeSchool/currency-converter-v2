@@ -23,7 +23,7 @@ export default ({ navigation }) => {
 
   return (
     <>
-      <StatusBar barStyle="dark-content" />
+      <StatusBar barStyle="dark-content" backgroundColor={colors.white} />
 
       <ScrollView>
         <RowItem

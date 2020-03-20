@@ -44,8 +44,9 @@ export const ConversionContextProvider = ({ children }) => {
     });
   };
 
+  // When we first mount the app we want to get the "latest" conversion data
   useEffect(() => {
-    setBaseCurrency("USD");
+    setBaseCurrency(DEFAULT_BASE_CURRENCY);
   }, []);
 
   const contextValue = {

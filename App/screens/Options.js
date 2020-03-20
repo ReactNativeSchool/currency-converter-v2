@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { StatusBar, ScrollView, Linking, Alert } from "react-native";
 import { Entypo } from "@expo/vector-icons";
 
+import colors from "../constants/colors";
 import { ThemeContext } from "../util/ThemeContext";
 import { RowItem, RowSeparator } from "../components/RowItem";
 
@@ -14,7 +15,7 @@ export default ({ navigation }) => {
   const { themeColor } = useContext(ThemeContext);
   return (
     <>
-      <StatusBar barStyle="dark-content" />
+      <StatusBar barStyle="dark-content" backgroundColor={colors.white} />
 
       <ScrollView>
         <RowItem
