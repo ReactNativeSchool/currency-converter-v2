@@ -6,6 +6,7 @@ import {
   View,
   SafeAreaView
 } from "react-native";
+import { Entypo } from "@expo/vector-icons";
 
 import colors from "../constants/colors";
 
@@ -34,18 +35,21 @@ export default () => {
     <SafeAreaView>
       <TouchableOpacity onPress={() => alert("todo!")} style={styles.row}>
         <Text style={styles.title}>Themes</Text>
+        <Entypo name="chevron-right" size={20} color={colors.blue} />
       </TouchableOpacity>
 
       <View style={styles.separator} />
 
       <TouchableOpacity onPress={() => alert("todo!")} style={styles.row}>
         <Text style={styles.title}>React Native Basics</Text>
+        <Entypo name="export" size={20} color={colors.blue} />
       </TouchableOpacity>
 
       <View style={styles.separator} />
 
       <TouchableOpacity onPress={() => alert("todo!")} style={styles.row}>
         <Text style={styles.title}>React Native by Example</Text>
+        <Entypo name="export" size={20} color={colors.blue} />
       </TouchableOpacity>
     </SafeAreaView>
   );
