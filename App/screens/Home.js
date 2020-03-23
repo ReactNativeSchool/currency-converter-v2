@@ -54,6 +54,7 @@ export default () => {
       <ConversionInput
         text="GBP"
         value="123"
+        editable={false}
         onButtonPress={() => alert("todo!")}
       />
     </View>
