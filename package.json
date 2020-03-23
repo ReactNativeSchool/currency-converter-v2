@@ -9,6 +9,7 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "date-fns": "^2.11.0",
     "expo": "~36.0.0",
     "react": "~16.9.0",
     "react-dom": "~16.9.0",
