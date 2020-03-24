@@ -7,10 +7,7 @@ import Options from "../screens/Options";
 
 const MainStack = createStackNavigator();
 const MainStackScreen = () => (
-  <MainStack.Navigator
-  // headerMode="none"
-  // initialRouteName="Options"
-  >
+  <MainStack.Navigator>
     <MainStack.Screen
       name="Home"
       component={Home}
