@@ -100,7 +100,10 @@ export default ({ navigation }) => {
               text={baseCurrency}
               value="123"
               onButtonPress={() =>
-                navigation.push("CurrencyList", { title: "Base Currency" })
+                navigation.push("CurrencyList", {
+                  title: "Base Currency",
+                  activeCurrency: baseCurrency
+                })
               }
               keyboardType="numeric"
               onChangeText={text => console.log("text", text)}
@@ -110,7 +113,10 @@ export default ({ navigation }) => {
               value="123"
               editable={false}
               onButtonPress={() =>
-                navigation.push("CurrencyList", { title: "Quote Currency" })
+                navigation.push("CurrencyList", {
+                  title: "Quote Currency",
+                  activeCurrency: quoteCurrency
+                })
               }
             />
           </View>
