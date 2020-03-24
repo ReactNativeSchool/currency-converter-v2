@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   StyleSheet,
@@ -6,7 +6,8 @@ import {
   Dimensions,
   Image,
   Text,
-  ScrollView
+  ScrollView,
+  Keyboard
 } from "react-native";
 import { format } from "date-fns";
 
@@ -61,10 +62,26 @@ export default () => {
   const conversionRate = 0.89824;
   const date = "2020-03-23";
 
+  const [scrollEnabled, setScrollEnabled] = useState(false);
+
+  useEffect(() => {
+    const showListener = Keyboard.addListener("keyboardDidShow", () =>
+      setScrollEnabled(true)
+    );
+    const hideListener = Keyboard.addListener("keyboardDidHide", () =>
+      setScrollEnabled(false)
+    );
+
+    return () => {
+      showListener.remove();
+      hideListener.remove();
+    };
+  }, []);
+
   return (
     <View style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor={colors.blue} />
-      <ScrollView>
+      <ScrollView scrollEnabled={scrollEnabled}>
         <View style={styles.content}>
           <View style={styles.logoContainer}>
             <Image
