@@ -7,8 +7,15 @@ import Options from "../screens/Options";
 
 const MainStack = createStackNavigator();
 const MainStackScreen = () => (
-  <MainStack.Navigator>
-    <MainStack.Screen name="Home" component={Home} />
+  <MainStack.Navigator
+  // headerMode="none"
+  // initialRouteName="Options"
+  >
+    <MainStack.Screen
+      name="Home"
+      component={Home}
+      options={{ headerShown: false }}
+    />
     <MainStack.Screen name="Options" component={Options} />
   </MainStack.Navigator>
 );
