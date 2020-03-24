@@ -11,6 +11,7 @@ import { format } from "date-fns";
 
 import colors from "../constants/colors";
 import { ConversionInput } from "../components/ConversionInput";
+import { Button } from "../components/Button";
 
 const screen = Dimensions.get("window");
 
@@ -94,6 +95,7 @@ export default () => {
           "MMM do, yyyy"
         )}`}
       </Text>
+      <Button text="Reverse Currencies" onPress={() => swapCurrencies()} />
     </View>
   );
 };
