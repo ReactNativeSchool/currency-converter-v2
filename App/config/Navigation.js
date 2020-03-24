@@ -15,7 +15,13 @@ const MainStackScreen = () => (
       options={{ headerShown: false }}
     />
     <MainStack.Screen name="Options" component={Options} />
-    <MainStack.Screen name="CurrencyList" component={CurrencyList} />
+    <MainStack.Screen
+      name="CurrencyList"
+      component={CurrencyList}
+      options={({ route }) => ({
+        title: route.params.title
+      })}
+    />
   </MainStack.Navigator>
 );
 
