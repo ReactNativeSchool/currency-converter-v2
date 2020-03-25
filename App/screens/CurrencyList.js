@@ -22,7 +22,7 @@ export default ({ navigation, route = {} }) => {
   const insets = useSafeArea();
 
   const params = route.params || {};
-  const { activeCurrency } = params;
+  const { activeCurrency, onChange = () => {} } = params;
 
   return (
     <View
@@ -41,6 +41,7 @@ export default ({ navigation, route = {} }) => {
             <RowItem
               title={item}
               onPress={() => {
+                onChange(item);
                 navigation.pop();
               }}
               rightIcon={

@@ -109,7 +109,8 @@ export default ({ navigation }) => {
               onButtonPress={() =>
                 navigation.push("CurrencyList", {
                   title: "Base Currency",
-                  activeCurrency: baseCurrency
+                  activeCurrency: baseCurrency,
+                  onChange: currency => setBaseCurrency(currency)
                 })
               }
               keyboardType="numeric"
@@ -124,7 +125,8 @@ export default ({ navigation }) => {
               onButtonPress={() =>
                 navigation.push("CurrencyList", {
                   title: "Quote Currency",
-                  activeCurrency: quoteCurrency
+                  activeCurrency: quoteCurrency,
+                  onChange: currency => setQuoteCurrency(currency)
                 })
               }
             />
