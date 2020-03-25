@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   View,
   StyleSheet,
@@ -17,6 +17,7 @@ import colors from "../constants/colors";
 import { ConversionInput } from "../components/ConversionInput";
 import { Button } from "../components/Button";
 import { KeyboardSpacer } from "../components/KeyboardSpacer";
+import { ConversionContext } from "../util/ConversionContext";
 
 const screen = Dimensions.get("window");
 
@@ -64,19 +65,19 @@ const styles = StyleSheet.create({
 });
 
 export default ({ navigation }) => {
-  const [baseCurrency, setBaseCurrency] = useState("USD");
-  const [quoteCurrency, setQuoteCurrency] = useState("GBP");
+  const {
+    baseCurrency,
+    quoteCurrency,
+    swapCurrencies,
+    setBaseCurrency,
+    setQuoteCurrency
+  } = useContext(ConversionContext);
   const [value, setValue] = useState("100");
 
   const conversionRate = 0.89824;
   const date = "2020-03-23";
 
   const [scrollEnabled, setScrollEnabled] = useState(false);
-
-  const swapCurrencies = () => {
-    setBaseCurrency(quoteCurrency);
-    setQuoteCurrency(baseCurrency);
-  };
 
   return (
     <View style={styles.container}>
