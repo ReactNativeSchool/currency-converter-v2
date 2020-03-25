@@ -13,8 +13,11 @@ export const ConversionContextProvider = ({ children }) => {
   const [quoteCurrency, setQuoteCurrency] = useState(DEFAULT_QUOTE_CURRENCY);
   const [date, setDate] = useState();
   const [rates, setRates] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
 
   const setBaseCurrency = currency => {
+    setIsLoading(true);
+
     return api(`/latest?base=${currency}`)
       .then(res => {
         _setBaseCurrency(currency);
@@ -23,6 +26,9 @@ export const ConversionContextProvider = ({ children }) => {
       })
       .catch(error => {
         Alert.alert("Sorry, something went wrong.", error.message);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   };
 
@@ -42,7 +48,8 @@ export const ConversionContextProvider = ({ children }) => {
     setQuoteCurrency,
     swapCurrencies,
     date,
-    rates
+    rates,
+    isLoading
   };
 
   return (
