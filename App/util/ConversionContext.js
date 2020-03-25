@@ -1,13 +1,16 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useState, useEffect } from "react";
 import { Alert } from "react-native";
 
 import { api } from "./api";
 
 export const ConversionContext = createContext();
 
+const DEFAULT_BASE_CURRENCY = "USD";
+const DEFAULT_QUOTE_CURRENCY = "GBP";
+
 export const ConversionContextProvider = ({ children }) => {
-  const [baseCurrency, _setBaseCurrency] = useState("USD");
-  const [quoteCurrency, setQuoteCurrency] = useState("GBP");
+  const [baseCurrency, _setBaseCurrency] = useState(DEFAULT_BASE_CURRENCY);
+  const [quoteCurrency, setQuoteCurrency] = useState(DEFAULT_QUOTE_CURRENCY);
   const [date, setDate] = useState();
   const [rates, setRates] = useState({});
 
@@ -27,6 +30,10 @@ export const ConversionContextProvider = ({ children }) => {
     setBaseCurrency(quoteCurrency);
     setQuoteCurrency(baseCurrency);
   };
+
+  useEffect(() => {
+    setBaseCurrency(DEFAULT_BASE_CURRENCY);
+  }, []);
 
   const contextValue = {
     baseCurrency,
