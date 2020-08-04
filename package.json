@@ -15,6 +15,8 @@
     "@react-navigation/stack": "^5.9.0",
     "date-fns": "^2.15.0",
     "expo": "^38.0.0",
+    "expo-localization": "~8.2.1",
+    "i18n-js": "^3.7.1",
     "react": "16.11.0",
     "react-dom": "16.11.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-38.0.2.tar.gz",
