@@ -1,4 +1,7 @@
+import { useEffect, useState } from "react";
 import i18n from "i18n-js";
+import { AppState } from "react-native";
+import * as Localization from "expo-localization";
 
 const translations = {
   en: {
@@ -26,10 +29,27 @@ const translations = {
     rnByExample: "",
   },
 };
+export const useLocalization = () => {
+  const [ready, setReady] = useState(false);
+  const configureLocalization = () => {
+    i18n.translations = translations;
+    i18n.fallbacks = true;
 
-export const configureLocalization = () => {
-  // i18n.locale = "en";
-  i18n.locale = "es";
-  i18n.translations = translations;
-  i18n.fallbacks = true;
+    Localization.getLocalizationAsync().then((response) => {
+      i18n.locale = response.locale;
+      setReady(true);
+    });
+  };
+
+  useEffect(() => {
+    configureLocalization();
+
+    AppState.addEventListener("change", configureLocalization);
+
+    return () => {
+      AppState.removeEventListener("change", configureLocalization);
+    };
+  }, []);
+
+  return { ready };
 };
