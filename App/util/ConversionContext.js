@@ -19,6 +19,9 @@ const get = (key) => {
 
 const CACHE_KEYS = {
   QUOTE_CURRENCY: "QUOTE_CURRENCY",
+  BASE_CURRENCY: "BASE_CURRENCY",
+  DATE: "DATE",
+  RATES: "RATES",
 };
 
 export const ConversionContextProvider = ({ children }) => {
@@ -30,15 +33,34 @@ export const ConversionContextProvider = ({ children }) => {
 
   const setBaseCurrency = (currency) => {
     setIsLoading(true);
+    return Promise.all([get(CACHE_KEYS.DATE), get(CACHE_KEYS.RATES)])
+      .then(([cachedDate, cachedRates]) => {
+        if (cachedDate) {
+          setDate(cachedDate);
+        }
 
-    return api(`/latest?base=${currency}`)
-      .then((res) => {
+        if (cachedRates) {
+          setRates(JSON.parse(cachedRates));
+        }
+
         _setBaseCurrency(currency);
-        setDate(res.date);
-        setRates(res.rates);
+
+        return api(`/latest?base=${currency}`);
+      })
+      .then((response) => {
+        _setBaseCurrency(currency);
+        setDate(response.date);
+        setRates(response.rates);
+
+        return Promise.all([
+          save(CACHE_KEYS.BASE_CURRENCY, currency),
+          save(CACHE_KEYS.DATE, response.date),
+          save(CACHE_KEYS.RATES, JSON.stringify(response.rates)),
+        ]);
       })
       .catch((error) => {
-        Alert.alert("Sorry, something went wrong.", error.message);
+        console.log(error);
+        Alert.alert("Sorry, something went wrong!", error.message);
       })
       .finally(() => {
         setIsLoading(false);
@@ -56,12 +78,15 @@ export const ConversionContextProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    setBaseCurrency(DEFAULT_BASE_CURRENCY);
-
-    get(CACHE_KEYS.QUOTE_CURRENCY).then((cachedQuote) => {
+    Promise.all([
+      get(CACHE_KEYS.BASE_CURRENCY),
+      get(CACHE_KEYS.QUOTE_CURRENCY),
+    ]).then(([cachedBase, cachedQuote]) => {
       if (cachedQuote) {
         setQuoteCurrency(cachedQuote);
       }
+
+      return setBaseCurrency(cachedBase || DEFAULT_BASE_CURRENCY);
     });
   }, []);
 

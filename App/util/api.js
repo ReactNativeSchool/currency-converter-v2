@@ -33,7 +33,7 @@ const SAMPLE_RATES = {
   THB: 38.13,
   TRY: 7.6282,
   USD: 1.1634,
-  ZAR: 17.8233
+  ZAR: 17.8233,
 };
 
 export const api = (fullPath = "") => {
@@ -49,15 +49,17 @@ export const api = (fullPath = "") => {
 
   const baseCurrency = fullPath.split("base=")[1] || "EUR";
 
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     setTimeout(() => {
+      // reject(new Error("API is unavailable."));
+
       resolve({
         base: baseCurrency,
         date: format(new Date(), "yyyy-MM-dd"),
         rates: {
           ...SAMPLE_RATES,
-          [baseCurrency]: 1
-        }
+          [baseCurrency]: 1,
+        },
       });
     }, 500);
   });
