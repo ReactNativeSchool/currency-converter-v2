@@ -4,19 +4,19 @@ import {
   ScrollView,
   Linking,
   Alert,
-  StatusBar
+  StatusBar,
 } from "react-native";
 import { Entypo } from "@expo/vector-icons";
 
 import colors from "../constants/colors";
 import { RowItem, RowSeparator } from "../components/RowItem";
 
-const openLink = url =>
+const openLink = (url) =>
   Linking.openURL(url).catch(() =>
     Alert.alert("Sorry, something went wrong.", "Please try again later.")
   );
 
-export default () => {
+export default ({ navigation }) => {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <StatusBar barStyle="dark-content" backgroundColor={colors.white} />
@@ -24,7 +24,7 @@ export default () => {
       <ScrollView>
         <RowItem
           title="Themes"
-          onPress={() => alert("todo!")}
+          onPress={() => navigation.push("Themes")}
           rightIcon={
             <Entypo name="chevron-right" size={20} color={colors.blue} />
           }

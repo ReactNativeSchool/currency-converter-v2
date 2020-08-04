@@ -7,17 +7,21 @@ import { Entypo } from "@expo/vector-icons";
 import Home from "../screens/Home";
 import Options from "../screens/Options";
 import CurrencyList from "../screens/CurrencyList";
+import Themes from "../screens/Themes";
 import colors from "../constants/colors";
 
 const MainStack = createStackNavigator();
 const MainStackScreen = () => (
   <MainStack.Navigator>
+    {/* initialRouteName="Themes" */}
+
     <MainStack.Screen
       name="Home"
       component={Home}
       options={{ headerShown: false }}
     />
     <MainStack.Screen name="Options" component={Options} />
+    <MainStack.Screen name="Themes" component={Themes} />
   </MainStack.Navigator>
 );
 
@@ -42,7 +46,7 @@ const ModalStackScreen = () => (
           >
             <Entypo name="cross" size={30} color={colors.blue} />
           </TouchableOpacity>
-        )
+        ),
       })}
     />
   </ModalStack.Navigator>
