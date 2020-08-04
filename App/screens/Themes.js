@@ -10,6 +10,7 @@ import { Entypo } from "@expo/vector-icons";
 
 import colors from "../constants/colors";
 import { RowItem, RowSeparator } from "../components/RowItem";
+import { useTheme } from "../util/Theme";
 
 const COLOR_OPTIONS = [
   {
@@ -41,8 +42,10 @@ const styles = StyleSheet.create({
 });
 
 export default ({ navigation }) => {
+  const { setThemeColor } = useTheme();
+
   const onPress = (color) => {
-    alert(color);
+    setThemeColor(color);
     navigation.popToTop();
   };
 

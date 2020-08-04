@@ -4,7 +4,7 @@ import {
   TouchableOpacity,
   Text,
   TextInput,
-  StyleSheet
+  StyleSheet,
 } from "react-native";
 
 import colors from "../constants/colors";
@@ -15,10 +15,10 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     marginHorizontal: 20,
     flexDirection: "row",
-    borderRadius: 5
+    borderRadius: 5,
   },
   containerDisabled: {
-    backgroundColor: colors.offWhite
+    backgroundColor: colors.offWhite,
   },
   button: {
     padding: 15,
@@ -26,19 +26,19 @@ const styles = StyleSheet.create({
     borderRightWidth: 1,
     backgroundColor: colors.white,
     borderTopLeftRadius: 5,
-    borderBottomLeftRadius: 5
+    borderBottomLeftRadius: 5,
   },
   buttonText: {
     fontSize: 18,
     color: colors.blue,
-    fontWeight: "bold"
+    fontWeight: "bold",
   },
   input: {
     flex: 1,
     padding: 10,
     fontSize: 16,
-    color: colors.textLight
-  }
+    color: colors.textLight,
+  },
 });
 
 export const ConversionInput = ({ text, onButtonPress, ...props }) => {
