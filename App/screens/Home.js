@@ -1,25 +1,24 @@
 import React, { useState, useContext } from "react";
 import {
+  View,
   StyleSheet,
   StatusBar,
-  View,
-  Image,
   Dimensions,
+  Image,
   Text,
+  ScrollView,
   TouchableOpacity,
-  ActivityIndicator,
-  ScrollView
+  ActivityIndicator
 } from "react-native";
+import { format } from "date-fns";
 import { Entypo } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { format } from "date-fns";
 
-import { ThemeContext } from "../util/ThemeContext";
-import { ConversionContext } from "../util/ConversionContext";
+import colors from "../constants/colors";
 import { ConversionInput } from "../components/ConversionInput";
 import { Button } from "../components/Button";
-import colors from "../constants/colors";
 import { KeyboardSpacer } from "../components/KeyboardSpacer";
+import { ConversionContext } from "../util/ConversionContext";
 
 const screen = Dimensions.get("window");
 
@@ -28,13 +27,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.blue
   },
-  header: {
-    alignItems: "flex-end",
-    marginHorizontal: 20
-  },
   content: {
-    position: "relative",
-    flex: 1,
     paddingTop: screen.height * 0.1
   },
   logoContainer: {
@@ -58,13 +51,17 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginBottom: 20
   },
-  inputContainer: {
-    marginBottom: 10
-  },
   text: {
     fontSize: 14,
     color: colors.white,
     textAlign: "center"
+  },
+  inputContainer: {
+    marginBottom: 10
+  },
+  header: {
+    alignItems: "flex-end",
+    marginHorizontal: 20
   }
 });
 
@@ -72,30 +69,25 @@ export default ({ navigation }) => {
   const {
     baseCurrency,
     quoteCurrency,
-    date,
-    isLoading,
     swapCurrencies,
-    rates
+    date,
+    rates,
+    isLoading
   } = useContext(ConversionContext);
-  const { themeColor } = useContext(ThemeContext);
-
-  const [scrollEnabled, setScrollEnabled] = useState(false);
   const [value, setValue] = useState("100");
+  const [scrollEnabled, setScrollEnabled] = useState(false);
+
   const conversionRate = rates[quoteCurrency];
 
   return (
-    <ScrollView
-      style={[styles.container, { backgroundColor: themeColor }]}
-      scrollEnabled={scrollEnabled}
-    >
-      <StatusBar barStyle="light-content" backgroundColor={themeColor} />
-
-      <SafeAreaView style={{ flex: 1 }}>
-        <View style={styles.header}>
+    <View style={styles.container}>
+      <StatusBar barStyle="light-content" backgroundColor={colors.blue} />
+      <ScrollView scrollEnabled={scrollEnabled}>
+        <SafeAreaView style={styles.header}>
           <TouchableOpacity onPress={() => navigation.push("Options")}>
             <Entypo name="cog" size={32} color={colors.white} />
           </TouchableOpacity>
-        </View>
+        </SafeAreaView>
 
         <View style={styles.content}>
           <View style={styles.logoContainer}>
@@ -106,7 +98,7 @@ export default ({ navigation }) => {
             />
             <Image
               source={require("../assets/images/logo.png")}
-              style={[styles.logo, { tintColor: themeColor }]}
+              style={styles.logo}
               resizeMode="contain"
             />
           </View>
@@ -122,17 +114,11 @@ export default ({ navigation }) => {
                   onButtonPress={() =>
                     navigation.push("CurrencyList", {
                       title: "Base Currency",
-                      isBase: true
+                      isBaseCurrency: true
                     })
                   }
                   keyboardType="numeric"
-                  onChangeText={text => {
-                    if (text.length === 0) {
-                      setValue();
-                    } else {
-                      setValue(text);
-                    }
-                  }}
+                  onChangeText={text => setValue(text)}
                 />
                 <ConversionInput
                   text={quoteCurrency}
@@ -144,16 +130,14 @@ export default ({ navigation }) => {
                   onButtonPress={() =>
                     navigation.push("CurrencyList", {
                       title: "Quote Currency",
-                      isBase: false
+                      isBaseCurrency: false
                     })
                   }
                 />
               </View>
               <Text style={styles.text}>
-                {`1 ${baseCurrency} = ${conversionRate} ${quoteCurrency} as of ${format(
-                  new Date(date),
-                  "MMM do, yyyy"
-                )}`}
+                {`1 ${baseCurrency} = ${conversionRate} ${quoteCurrency} as of ${date &&
+                  format(new Date(date), "MMM do, yyyy")}`}
               </Text>
               <Button
                 text="Reverse Currencies"
@@ -161,9 +145,9 @@ export default ({ navigation }) => {
               />
             </>
           )}
+          <KeyboardSpacer onToggle={visible => setScrollEnabled(visible)} />
         </View>
-      </SafeAreaView>
-      <KeyboardSpacer onToggle={visible => setScrollEnabled(visible)} />
-    </ScrollView>
+      </ScrollView>
+    </View>
   );
 };

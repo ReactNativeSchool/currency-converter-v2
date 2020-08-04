@@ -10,10 +10,10 @@ const DEFAULT_QUOTE_CURRENCY = "GBP";
 
 export const ConversionContextProvider = ({ children }) => {
   const [baseCurrency, _setBaseCurrency] = useState(DEFAULT_BASE_CURRENCY);
-  const [quoteCurrency, _setQuoteCurrency] = useState(DEFAULT_QUOTE_CURRENCY);
+  const [quoteCurrency, setQuoteCurrency] = useState(DEFAULT_QUOTE_CURRENCY);
   const [date, setDate] = useState();
-  const [isLoading, setIsLoading] = useState(true);
   const [rates, setRates] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
 
   const setBaseCurrency = currency => {
     setIsLoading(true);
@@ -32,19 +32,11 @@ export const ConversionContextProvider = ({ children }) => {
       });
   };
 
-  const setQuoteCurrency = currency => {
-    _setQuoteCurrency(currency);
-  };
-
   const swapCurrencies = () => {
-    const newBase = quoteCurrency;
-    const newQuote = baseCurrency;
-    return setBaseCurrency(newBase).then(() => {
-      return setQuoteCurrency(newQuote);
-    });
+    setBaseCurrency(quoteCurrency);
+    setQuoteCurrency(baseCurrency);
   };
 
-  // When we first mount the app we want to get the "latest" conversion data
   useEffect(() => {
     setBaseCurrency(DEFAULT_BASE_CURRENCY);
   }, []);
@@ -52,12 +44,12 @@ export const ConversionContextProvider = ({ children }) => {
   const contextValue = {
     baseCurrency,
     quoteCurrency,
-    date,
     setBaseCurrency,
     setQuoteCurrency,
-    isLoading,
     swapCurrencies,
-    rates
+    date,
+    rates,
+    isLoading
   };
 
   return (

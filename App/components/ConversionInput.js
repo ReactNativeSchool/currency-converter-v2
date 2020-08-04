@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import {
   View,
   TouchableOpacity,
@@ -8,7 +8,6 @@ import {
 } from "react-native";
 
 import colors from "../constants/colors";
-import { ThemeContext } from "../util/ThemeContext";
 
 const styles = StyleSheet.create({
   container: {
@@ -43,18 +42,15 @@ const styles = StyleSheet.create({
 });
 
 export const ConversionInput = ({ text, onButtonPress, ...props }) => {
-  const { themeColor } = useContext(ThemeContext);
-
   const containerStyles = [styles.container];
 
   if (props.editable === false) {
     containerStyles.push(styles.containerDisabled);
   }
-
   return (
     <View style={containerStyles}>
       <TouchableOpacity style={styles.button} onPress={onButtonPress}>
-        <Text style={[styles.buttonText, { color: themeColor }]}>{text}</Text>
+        <Text style={styles.buttonText}>{text}</Text>
       </TouchableOpacity>
       <TextInput style={styles.input} {...props} />
     </View>
