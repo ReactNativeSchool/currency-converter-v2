@@ -17,9 +17,13 @@ const get = (key) => {
   return AsyncStorage.getItem(`CurrencyConverter::${key}`);
 };
 
+const CACHE_KEYS = {
+  QUOTE_CURRENCY: "QUOTE_CURRENCY",
+};
+
 export const ConversionContextProvider = ({ children }) => {
   const [baseCurrency, _setBaseCurrency] = useState(DEFAULT_BASE_CURRENCY);
-  const [quoteCurrency, setQuoteCurrency] = useState(DEFAULT_QUOTE_CURRENCY);
+  const [quoteCurrency, _setQuoteCurrency] = useState(DEFAULT_QUOTE_CURRENCY);
   const [date, setDate] = useState();
   const [rates, setRates] = useState({});
   const [isLoading, setIsLoading] = useState(true);
@@ -41,6 +45,11 @@ export const ConversionContextProvider = ({ children }) => {
       });
   };
 
+  const setQuoteCurrency = (currency) => {
+    _setQuoteCurrency(currency);
+    return save(CACHE_KEYS.QUOTE_CURRENCY, currency);
+  };
+
   const swapCurrencies = () => {
     setBaseCurrency(quoteCurrency);
     setQuoteCurrency(baseCurrency);
@@ -48,6 +57,12 @@ export const ConversionContextProvider = ({ children }) => {
 
   useEffect(() => {
     setBaseCurrency(DEFAULT_BASE_CURRENCY);
+
+    get(CACHE_KEYS.QUOTE_CURRENCY).then((cachedQuote) => {
+      if (cachedQuote) {
+        setQuoteCurrency(cachedQuote);
+      }
+    });
   }, []);
 
   const contextValue = {
