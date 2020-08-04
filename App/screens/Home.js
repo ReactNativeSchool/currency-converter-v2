@@ -21,13 +21,13 @@ import { ConversionInput } from "../components/ConversionInput";
 import { Button } from "../components/Button";
 import { KeyboardSpacer } from "../components/KeyboardSpacer";
 import { ConversionContext } from "../util/ConversionContext";
+import { useTheme } from "../util/Theme";
 
 const screen = Dimensions.get("window");
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.blue,
   },
   content: {
     paddingTop: screen.height * 0.1,
@@ -78,12 +78,13 @@ export default ({ navigation }) => {
   } = useContext(ConversionContext);
   const [value, setValue] = useState("100");
   const [scrollEnabled, setScrollEnabled] = useState(false);
+  const { themeColor } = useTheme();
 
   const conversionRate = rates[quoteCurrency];
 
   return (
-    <View style={styles.container}>
-      <StatusBar barStyle="light-content" backgroundColor={colors.blue} />
+    <View style={[styles.container, { backgroundColor: themeColor }]}>
+      <StatusBar barStyle="light-content" backgroundColor={themeColor} />
       <ScrollView scrollEnabled={scrollEnabled}>
         <SafeAreaView style={styles.header}>
           <TouchableOpacity
@@ -105,7 +106,7 @@ export default ({ navigation }) => {
             />
             <Image
               source={require("../assets/images/logo.png")}
-              style={styles.logo}
+              style={[styles.logo, { tintColor: themeColor }]}
               resizeMode="contain"
             />
           </View>

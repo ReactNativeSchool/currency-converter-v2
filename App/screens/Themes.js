@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
 });
 
 export default ({ navigation }) => {
-  const { setThemeColor } = useTheme();
+  const { themeColor, setThemeColor } = useTheme();
 
   const onPress = (color) => {
     setThemeColor(color);
@@ -54,7 +54,7 @@ export default ({ navigation }) => {
       <StatusBar barStyle="dark-content" backgroundColor={colors.white} />
       <ScrollView>
         {COLOR_OPTIONS.map((opt) => {
-          const current = true;
+          const current = opt.color === themeColor;
 
           return (
             <React.Fragment key={opt.text}>

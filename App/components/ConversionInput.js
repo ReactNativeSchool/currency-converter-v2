@@ -8,6 +8,7 @@ import {
 } from "react-native";
 
 import colors from "../constants/colors";
+import { useTheme } from "../util/Theme";
 
 const styles = StyleSheet.create({
   container: {
@@ -30,7 +31,6 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontSize: 18,
-    color: colors.blue,
     fontWeight: "bold",
   },
   input: {
@@ -42,6 +42,8 @@ const styles = StyleSheet.create({
 });
 
 export const ConversionInput = ({ text, onButtonPress, ...props }) => {
+  const { themeColor } = useTheme();
+
   const containerStyles = [styles.container];
 
   if (props.editable === false) {
@@ -50,7 +52,7 @@ export const ConversionInput = ({ text, onButtonPress, ...props }) => {
   return (
     <View style={containerStyles}>
       <TouchableOpacity style={styles.button} onPress={onButtonPress}>
-        <Text style={styles.buttonText}>{text}</Text>
+        <Text style={[styles.buttonText, { color: themeColor }]}>{text}</Text>
       </TouchableOpacity>
       <TextInput style={styles.input} {...props} />
     </View>

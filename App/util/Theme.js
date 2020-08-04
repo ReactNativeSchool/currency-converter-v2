@@ -7,10 +7,8 @@ const ThemeContext = createContext();
 export const ThemeContextProvider = ({ children }) => {
   const [themeColor, setThemeColor] = useState(colors.blue);
 
-  console.log("themeColor", themeColor);
-
   return (
-    <ThemeContext.Provider value={{ setThemeColor }}>
+    <ThemeContext.Provider value={{ themeColor, setThemeColor }}>
       {children}
     </ThemeContext.Provider>
   );
