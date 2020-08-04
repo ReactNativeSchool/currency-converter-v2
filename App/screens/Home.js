@@ -14,6 +14,7 @@ import { format } from "date-fns";
 import { Entypo } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
 import AsyncStorage from "@react-native-community/async-storage";
+import i18n from "i18n-js";
 
 import colors from "../constants/colors";
 import { ConversionInput } from "../components/ConversionInput";
@@ -108,7 +109,7 @@ export default ({ navigation }) => {
               resizeMode="contain"
             />
           </View>
-          <Text style={styles.textHeader}>Currency Converter</Text>
+          <Text style={styles.textHeader}>{i18n.t("currencyConverter")}</Text>
           {isLoading ? (
             <ActivityIndicator color={colors.white} size="large" />
           ) : (
@@ -146,7 +147,7 @@ export default ({ navigation }) => {
                   format(new Date(date), "MMM do, yyyy")}`}
               </Text>
               <Button
-                text="Reverse Currencies"
+                text={i18n.t("reverseCurrencies")}
                 onPress={() => swapCurrencies()}
               />
             </>
