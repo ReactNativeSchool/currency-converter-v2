@@ -36,7 +36,7 @@ export default () => {
           title="React Native Basics"
           onPress={() =>
             openLink(
-              "https://learn.handlebarlabs.com/p/react-native-basics-build-a-currency-converter"
+              "https://reactnativebasics.com"
             )
           }
           rightIcon={<Entypo name="export" size={20} color={colors.blue} />}
@@ -45,8 +45,8 @@ export default () => {
         <RowSeparator />
 
         <RowItem
-          title="React Native by Example"
-          onPress={() => openLink("https://reactnativebyexample.com")}
+          title="React Native School"
+          onPress={() => openLink("https://reactnativeschool.com")}
           rightIcon={<Entypo name="export" size={20} color={colors.blue} />}
         />
       </ScrollView>
